@@ -5,6 +5,14 @@ import Charts from "./Charts";
 async function Dashboard() {
   const rows = await getData();
 
+  if (rows.length === 0) {
+    return (
+      <p className="text-red-600">
+        ไม่พบข้อมูลจาก Google Sheet ตรวจสอบ SHEET_CSV_URL และการแชร์ไฟล์
+      </p>
+    );
+  }
+
   const totals = new Map<number, number>();
   for (const r of rows) {
     totals.set(r.year, (totals.get(r.year) ?? 0) + r.patients);
